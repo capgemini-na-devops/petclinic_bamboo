@@ -1,0 +1,17 @@
+---
+version: 2
+plan:
+  project-key: MARS
+  key: ROCKET
+  name: Build petclinic
+stages:
+  - Build war:
+    - Build
+    
+Build:
+  tasks:
+    - clean
+    - script:
+      - echo 'Hello World!'
+      - /usr/local/src/apache-maven/bin/mvn clean package
+      - curl -v -u admin:admin123 --upload-file ${bamboo.path}/petclinic.war http://18.236.232.129:8081/nexus/content/repositories/BuildQA/${bamboo.buildNumber}/petclinic.war
