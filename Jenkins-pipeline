@@ -1,0 +1,48 @@
+node
+{
+     stage('GitSCM')
+    {
+        git url: 'https://github.com/Poojkulk/petclinic.git'
+    }
+    
+     stage('Initialize')
+    {
+    
+		jdk = tool name: 'java'
+		env.JAVA_HOME = "${jdk}"
+		echo "jdk installation path is: ${jdk}"
+		// next 2 are equivalents
+		sh "${jdk}/bin/java -version"
+		// note that simple quote strings are not evaluated by Groovy
+		// substitution is done by shell script using environment
+		sh '$JAVA_HOME/bin/java -version'
+		def mvnHome = tool 'mvn'
+	//	sh "${mvnHome}/bin/mvn -B verify"
+    }
+   
+    stage('Build Stage')
+    {
+		def mvnHome = tool 'mvn'
+		sh "${mvnHome}/bin/mvn -B verify"
+    } 
+    
+
+
+	stage('Publish to Nexus')
+    {
+      nexusArtifactUploader artifacts: [[artifactId: 'petclinic', classifier: '', file:'/var/lib/jenkins/workspace/petclinic/target/petclinic.war', type: 'war']], credentialsId: '6a7ec07e-b4b2-43cd-b0f5-85f69b10ce8e', groupId: 'cicd', nexusUrl:'52.13.66.31:8081/nexus/content/repositories/petclinic', nexusVersion: 'nexus2', protocol: 'http', repository: 'petclinic', version: '${BUILD_NUMBER}'
+    // sh 'mvn deploy:deploy-file -DcredentialsId=6a7ec07e-b4b2-43cd-b0f5-85f69b10ce8e -DgroupId=com.cicd -DartifactId=petclinic -Dversion=${BUILD_NUMBER} -DgeneratePom=true -Dpackaging=war -DrepositoryId=nexus-snapshots -Durl=http://52.13.66.31:8081/nexus  -Dfile=/var/lib/jenkins/workspace/petclinic/target/petclinic.war'
+    }
+    
+    stage('Deploy to Tomcat')	
+    {	
+	    deploy adapters: [tomcat8(credentialsId: '2ea36ad7-d5eb-4a03-912b-3429165f59a5', path: '', url: 'http://54.218.115.187:8082/')], contextPath: 'petclinic', war: '**/*.war'	
+    }
+   // stage('Send logs to ES')
+   // {
+    //    logstashSend failBuild: true, maxLines: -1
+      //  sh 'sleep 1'
+    //}
+}
+
+
