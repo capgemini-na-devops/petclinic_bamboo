@@ -14,3 +14,4 @@ Build:
     - script:
       - echo 'Hello World!'
       - /usr/local/src/apache-maven/bin/mvn clean install
+      - curl -v -u admin:admin123 --upload-file /var/atlassian/application/bamboo/xml-data/build-dir/360449/MARS-ROCKET-JOB1/target/petclinic.war http://18.236.232.129:8081/nexus/content/repositories/BuildQA/${bamboo.buildNumber}/petclinic.war
