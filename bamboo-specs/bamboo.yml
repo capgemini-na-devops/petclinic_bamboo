@@ -31,17 +31,3 @@ branches:
   link-to-jira: true
 notifications: []
 labels: []
----
-version: 2
-plan:
-  key: MARS-ROCKET
-plan-permissions:
-- users:
-  - bamboo
-  permissions:
-  - view
-  - edit
-  - build
-  - clone
-  - admin
-...
