@@ -23,11 +23,3 @@ Job1:
 # Task com.atlassian.bamboo.plugins.tomcat.bamboo-tomcat-plugin:deployAppTask is not supported yet
 #variables:
  # path: /var/atlassian/application/bamboo/xml-data/build-dir/BAM-BAM-JOB1/target
-triggers:
-- polling: 05
-branches:
-  create: manually
-  delete: never
-  link-to-jira: true
-notifications: []
-labels: []
