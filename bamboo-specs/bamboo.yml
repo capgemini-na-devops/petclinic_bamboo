@@ -22,7 +22,7 @@ Job1:
      # - curl -v -u admin:admin123 --upload-file ${bamboo.path}/petclinic.war http://18.236.232.129:8081/nexus/content/repositories/Bamboo/${bamboo.buildNumber}/petclinic.war
 # Task com.atlassian.bamboo.plugins.tomcat.bamboo-tomcat-plugin:deployAppTask is not supported yet
 variables:
-  path:/var/atlassian/application/bamboo/xml-data/build-dir/360449/MARS-ROCKET-JOB1/target
+  path: /var/atlassian/application/bamboo/xml-data/build-dir/360449/MARS-ROCKET-JOB1/target
 ---
 version: 2
 # Short syntax
