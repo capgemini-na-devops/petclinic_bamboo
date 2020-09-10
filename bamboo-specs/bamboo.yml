@@ -5,13 +5,41 @@ plan:
   key: ROCKET
   name: Build petclinic
 stages:
-  - Build war:
-    - Build
-    
-Build:
+- Default Stage:
+    manual: false
+    final: false
+    jobs:
+    - Job1
+Job1:
+  key: JOB1
   tasks:
-    - clean
-    - script:
-      - echo 'Hello World!'
+  - checkout:
+      force-clean-build: 'true'
+# Task com.atlassian.bamboo.plugins.maven:task.builder.mvn3 is not supported yet
+  - script:
+      interpreter: BINSH_OR_CMDEXE
+      scripts:
       - /usr/local/src/apache-maven/bin/mvn clean install
-      - curl -v -u admin:admin123 --upload-file /var/atlassian/application/bamboo/xml-data/build-dir/360449/MARS-ROCKET-JOB1/target/petclinic.war http://18.236.232.129:8081/nexus/content/repositories/BuildQA/${bamboo.buildNumber}/petclinic.war
+     # - curl -v -u admin:admin123 --upload-file ${bamboo.path}/petclinic.war http://18.236.232.129:8081/nexus/content/repositories/Bamboo/${bamboo.buildNumber}/petclinic.war
+# Task com.atlassian.bamboo.plugins.tomcat.bamboo-tomcat-plugin:deployAppTask is not supported yet
+#variables:
+ # path: /var/atlassian/application/bamboo/xml-data/build-dir/BAM-BAM-JOB1/target
+triggers:
+- polling: 05
+branches:
+  create: manually
+  delete: never
+  link-to-jira: true
+notifications: []
+labels: []
+other:
+  concurrent-build-plugin: system-default
+plan-permissions:
+- users:
+  - bamboo
+  permissions:
+  - view
+  - edit
+  - build
+  - clone
+  - admin
