@@ -33,6 +33,10 @@ notifications: []
 labels: []
 other:
   concurrent-build-plugin: system-default
+---
+version: 2
+plan:
+  key: MARS-ROCKET
 plan-permissions:
 - users:
   - bamboo
@@ -42,3 +46,4 @@ plan-permissions:
   - build
   - clone
   - admin
+...
