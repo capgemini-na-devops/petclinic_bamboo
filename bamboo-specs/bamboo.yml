@@ -14,7 +14,8 @@ Job1:
   key: JOB1
   tasks:
   - checkout:
-      force-clean-build: 'true'
+      force-clean-build: 'false'
+  - clean
 # Task com.atlassian.bamboo.plugins.maven:task.builder.mvn3 is not supported yet
   - script:
       interpreter: BINSH_OR_CMDEXE
