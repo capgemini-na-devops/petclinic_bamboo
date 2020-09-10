@@ -4,20 +4,14 @@ plan:
   project-key: MARS
   key: ROCKET
   name: Build petclinic
-  description: This is a test build plan for bamboo specs
-notifications:
-- when: PLAN_COMPLETED
-  recipientUsers: pooja-k.kulkarni@capgemini.com
 stages:
-- name: Build
-  jobs:
-  - name: Build war
-    description: Build war file using Maven
-  Build:
+  - Build war:
+    - Build
+    
+Build:
   tasks:
-  - type: clean
-  - type: script
-    body: |
+    - clean
+    - script:
       - echo 'Hello World!'
       - /usr/local/src/apache-maven/bin/mvn clean install
       - curl -v -u admin:admin123 --upload-file /var/atlassian/application/bamboo/xml-data/build-dir/360449/MARS-ROCKET-JOB1/target/petclinic.war http://18.236.232.129:8081/nexus/content/repositories/BuildQA/${bamboo.buildNumber}/petclinic.war
