@@ -31,8 +31,6 @@ branches:
   link-to-jira: true
 notifications: []
 labels: []
-other:
-  concurrent-build-plugin: system-default
 ---
 version: 2
 plan:
