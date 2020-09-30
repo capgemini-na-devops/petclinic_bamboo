@@ -3,7 +3,7 @@ version: 2
 plan:
   project-key: BAM
   key: PETS
-  name: Build petclinic
+  name: Build petclinics
 stages:
 - Default Stage:
     manual: false
